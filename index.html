@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="H&L Chopp - Sistema escolar de controle de produtos, mesas e pedidos.">
+  <title>H&L Chopp | Controle de Pedidos</title>
+  <link rel="stylesheet" href="./css/style.css?v=20261117c">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="logo"><div class="logo-symbol">H<span>&</span>L</div><div><strong>H&L CHOPP</strong><small>CONTROLE DE PEDIDOS</small></div></div>
+      <div class="nav-caption">MENU PRINCIPAL</div>
+      <nav id="nav">
+        <button class="nav-link active" data-page="dashboard">▦ <span>Visão geral</span></button>
+        <button class="nav-link" data-page="neworder">✚ <span>Novo pedido</span></button>
+        <button class="nav-link" data-page="orders">☷ <span>Acompanhar pedidos</span></button>
+        <button class="nav-link" data-page="kitchen">♨ <span>Churrasqueira</span></button>
+        <button class="nav-link" data-page="menu">◈ <span>Cardápio</span></button>
+        <button class="nav-link" data-page="stock">▤ <span>Estoque</span></button>
+        <button class="nav-link" data-page="cashier">▣ <span>Caixa</span></button>
+        <button class="nav-link" data-page="reports">▥ <span>Relatórios</span></button>
+      </nav>
+      <div class="side-foot"><span class="online-dot"></span><span>Projeto Integrado<br><small>DWS · POO · BD</small></span></div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div><div class="eyebrow">H&L CHOPP / SISTEMA DE GESTÃO</div><h1 id="pageTitle">Visão geral</h1><p id="pageDescription">Acompanhe o movimento do estabelecimento.</p></div><div class="top-actions"><span id="modeTag" class="mode-tag">Demonstração</span><span id="today"></span></div></header>
+      <div id="errorBanner" class="error-banner" hidden></div>
+      <section class="screen active" id="dashboard">
+        <div class="hero"><div><span class="eyebrow gold">BEM-VINDO AO SISTEMA</span><h2>Atendimento mais rápido.<br><em>Controle mais simples.</em></h2><p>Pedidos, produtos e vendas da H&L Chopp em um só lugar.</p><button class="btn primary" data-goto="neworder">＋ Registrar pedido</button></div><div class="hero-icon">H<span>&</span>L<small>CHOPP</small></div></div>
+        <div class="stats-grid">
+          <article class="stat-card"><span>Pedidos hoje</span><strong id="statOrders">0</strong><small>registrados no dia</small></article>
+          <article class="stat-card"><span>Faturamento recebido</span><strong id="statRevenue">R$ 0,00</strong><small>pagamentos de hoje</small></article>
+          <article class="stat-card"><span>Pedidos pendentes</span><strong id="statPending">0</strong><small>aguardando preparo</small></article>
+          <article class="stat-card"><span>Em preparo</span><strong id="statCooking">0</strong><small>na churrasqueira</small></article>
+        </div>
+        <div class="two-columns"><div class="panel"><div class="section-heading"><div><h3>Últimos pedidos</h3><p>Pedidos recentes cadastrados no sistema</p></div><button class="btn text-btn" data-goto="orders">Ver todos →</button></div><div id="recentList"></div></div><div class="panel"><div class="section-heading"><div><h3>Mais vendidos hoje</h3><p>Produtos com maior quantidade pedida</p></div></div><div id="topProducts"></div></div></div>
+      </section>
+      <section class="screen" id="neworder">
+        <div class="section-intro"><h2>Registrar novo pedido</h2><p>Escolha uma mesa ou retirada, adicione os produtos e confira o total.</p></div>
+        <div class="two-columns order-layout"><div class="panel"><form id="orderForm"><h3>Dados do pedido</h3><div class="fields-grid"><label>Tipo de pedido<select id="orderType"><option value="Mesa">Mesa</option><option value="Retirada">Retirada</option></select></label><label id="tableField">Mesa<input id="tableName" placeholder="Ex.: Mesa 04" maxlength="35" required></label><label id="customerField" hidden>Nome para retirada<input id="customerName" placeholder="Nome do cliente" maxlength="70"></label><label id="pickupField" hidden>Horário combinado<input id="pickupTime" type="time"></label></div><h3 class="sub-heading">Adicionar produtos</h3><div class="item-picker"><label>Produto<select id="orderProduct"></select></label><label>Quantidade<input id="orderQuantity" type="number" min="1" max="99" value="1"></label><button id="addToCart" type="button" class="btn secondary">＋ Adicionar</button></div><label>Observações do pedido<textarea id="orderNotes" rows="3" maxlength="300" placeholder="Ex.: espetinho bem passado"></textarea></label></form></div><div class="panel"><h3>Resumo do pedido</h3><p>Confira os itens antes de registrar.</p><div id="cartList" class="cart-list"></div><div class="order-total"><span>Total</span><strong id="cartTotal">R$ 0,00</strong></div><button class="btn primary full" type="submit" form="orderForm">✓ Registrar pedido</button></div></div>
+      </section>
+      <section class="screen" id="orders"><div class="section-heading"><div><h2>Acompanhamento de pedidos</h2><p>Organizados por etapa de atendimento</p></div><button class="btn primary" data-goto="neworder">＋ Novo pedido</button></div><div id="kanban" class="kanban"></div></section>
+      <section class="screen" id="kitchen"><div class="section-heading"><div><h2>Tela da churrasqueira</h2><p>Confira os pedidos pendentes e em preparo</p></div><span class="helper-tag">Atualização periódica no modo PHP</span></div><div id="kitchenList" class="kitchen-grid"></div><p class="note">Esta versão escolar mostra os pedidos na tela. A impressão automática foi deixada para uma etapa futura.</p></section>
+      <section class="screen" id="menu"><div class="section-heading"><div><h2>Cardápio digital</h2><p>Cadastre produtos e organize os itens por categoria</p></div></div><div class="two-columns order-layout"><div class="panel"><h3 id="productFormTitle">Cadastrar produto</h3><form id="productForm"><input type="hidden" id="editingId"><label>Nome do produto<input id="productName" maxlength="85" required placeholder="Ex.: Espetinho de carne"></label><div class="fields-grid"><label>Categoria<select id="productCategory"><option>Espetinhos tradicionais</option><option>Espetinhos especiais</option><option>Jantinhas</option><option>Chopp</option><option>Outras bebidas</option><option>Outros</option></select></label><label>Preço (R$)<input id="productPrice" type="number" min="0.01" max="10000" step="0.01" required></label><label>Quantidade no estoque<input id="productStock" type="number" min="0" max="100000" required></label><label>Alerta de estoque mínimo<input id="productMin" type="number" min="0" max="100000" required></label></div><div class="button-row"><button type="submit" class="btn primary" id="saveProductBtn">Salvar produto</button><button type="button" class="btn outline" id="cancelProductEdit">Limpar</button></div></form></div><div class="panel"><div class="section-heading"><div><h3>Produtos cadastrados</h3><p>Editar, remover e consultar preços</p></div></div><div id="productList"></div></div></div></section>
+      <section class="screen" id="stock"><div class="section-heading"><div><h2>Controle de estoque</h2><p>A baixa acontece quando um pedido é registrado</p></div><button class="btn outline" data-goto="menu">Editar produtos</button></div><div class="panel"><div id="stockList"></div></div></section>
+      <section class="screen" id="cashier"><div class="section-heading"><div><h2>Fechamento de contas</h2><p>Registre o pagamento das mesas e pedidos para retirada</p></div></div><div class="two-columns"><div class="panel"><h3>Contas em aberto</h3><div id="openBills"></div></div><div class="panel"><h3>Pagamentos registrados</h3><div id="paidBills"></div></div></div></section>
+      <section class="screen" id="reports"><div class="section-heading"><div><h2>Relatórios de vendas</h2><p>Resumo do movimento de hoje</p></div></div><div class="stats-grid"><article class="stat-card"><span>Pedidos hoje</span><strong id="reportOrders">0</strong></article><article class="stat-card"><span>Valor dos pedidos</span><strong id="reportOrdered">R$ 0,00</strong></article><article class="stat-card"><span>Recebido hoje</span><strong id="reportPaid">R$ 0,00</strong></article><article class="stat-card"><span>Contas em aberto</span><strong id="reportOpen">0</strong></article></div><div class="two-columns"><div class="panel"><h3>Produtos mais vendidos</h3><div id="salesBars"></div></div><div class="panel"><h3>Movimento por horário</h3><div id="timeBars"></div></div></div></section>
+      <footer>© 2026 H&L Chopp · Projeto Integrado DWS, POO e Banco de Dados <span id="updatedAt"></span></footer>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="js/app.js"></script>
+</body>
+</html>
